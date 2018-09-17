@@ -65,7 +65,12 @@ generateXML(){
         done     
     fi
     echo "</background>" >> $xml_file_name
-    echo "The ${xml_file_name} has been generated in ${pwd}/${xml_file_name}, now go to gnome-control-center to set background picture to this xml"
+    echo "The ${xml_file_name} has been generated in $(pwd)/${xml_file_name}, now go to gnome-control-center to set background picture to this xml"
+    current_setting=`gsettings get org.gnome.desktop.background picture-uri`
+    new_setting="file://$(pwd)/${xml_file_name}"
+    echo -e "Current org.gnome.desktop.background picture-uri is: ${current_setting}, \nwill set it to ${new_setting}"
+    gsettings set org.gnome.desktop.background picture-uri ${new_setting}
+    echo "OK"
 }
 
 if [ $# = 0 ]; then
