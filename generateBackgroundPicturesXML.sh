@@ -72,12 +72,16 @@ generateXML(){
     echo "The ${xml_file_name} has been generated in $(pwd)/${xml_file_name}"
 
     # 开始设置背景图
-    current_setting=`gsettings get org.gnome.desktop.background picture-uri`
-    new_setting="file://$(pwd)/${xml_file_name}"
-    echo -e "Current org.gnome.desktop.background picture-uri is: ${current_setting}, \nwill set it to ${new_setting}"
-    gsettings set org.gnome.desktop.background picture-uri ${new_setting}
-    echo "OK"
-    echo "Tips: You can run 'gsettings set org.gnome.desktop.background picture-uri file_url' to set wallpaper"
+    if [ `command -v gsettings` ];then
+        current_setting=`gsettings get org.gnome.desktop.background picture-uri`
+        new_setting="file://$(pwd)/${xml_file_name}"
+        echo -e "Current org.gnome.desktop.background picture-uri is: ${current_setting}, \nwill set it to ${new_setting}"
+        gsettings set org.gnome.desktop.background picture-uri ${new_setting}
+        echo "OK"
+        echo "Tips: You can run 'gsettings set org.gnome.desktop.background picture-uri file_url' to set wallpaper"
+    else
+        echo -e "gsettings is not found, please go to settings to set the background picture-url to ${new_setting}\n or install gsettings and run: \n'gsettings set org.gnome.desktop.background picture-uri ${new_setting}'"
+    fi
 }
 
 if [[ $# = 0 || $# != 4 ]]; then  # 如果参数个数为0或者不是4,显示帮助信息
