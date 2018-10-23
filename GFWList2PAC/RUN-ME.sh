@@ -8,7 +8,7 @@ echo
 echo "it will download gfwlist from https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt, please wait"
 echo
 echo "************************************************************************************************"
-python main.py  -f pac.txt -p "SOCKS5 127.0.0.1:1080" # --user-rule https://dl.sunriseydy.top/pac/user.rule
+python main.py  -f pac.txt -p "SOCKS5 127.0.0.1:1080"
 echo
 echo "OK, next copy the pac.txt to your ssr's folder"
 echo 
