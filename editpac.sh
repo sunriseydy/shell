@@ -4,7 +4,7 @@
 # Author: SunriseYDY
 # Version: 1.0
 
-PAC_PATH="/home/sunriseydy/pac.txt" # PAC 文件的路径
+PAC_PATH="pac.txt" # PAC 文件的路径，默认为当前目录下的 pac.txt
 # 获取参数，参数为 PAC 文件路径
 if [ $1 ]; then
     PAC_PATH=$1
