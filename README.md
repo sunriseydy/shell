@@ -8,6 +8,8 @@
 
 通过 Python 来生成 pac.txt 文件的脚本， fork 自破娃酱的 [GFWList2PAC](https://github.com/breakwa11/GFWList2PAC) 项目，目录内有一个 RUN-ME.sh ，在Linux下运行 `RUN-ME.sh` 可以自动更新 GFWList2PAC 文件夹中的 GFWList 并转换为 pac.txt
 
+在我的下载站中有每周更新的 pac.txt 文件，地址：[https://dl.sunriseydy.top/pac/](https://dl.sunriseydy.top/pac/)
+
 ### [editpac.sh](editpac.sh)
 
 用来编辑 pac.txt 文件的 shell 脚本。由于使用了 sed 命令来匹配文本内容，目前就适配了上面所生成的 pac.txt 文件。

@@ -3,6 +3,12 @@ GFWList2PAC
 
 Generate O(1) PAC file from gfwlist.
 
+fork from [breakwa11](https://github.com/breakwa11/GFWList2PAC)
+
+Add a shell script to execute `python main.py  -f pac.txt -p "SOCKS5 127.0.0.1:1080"` in `RUN-ME.sh`.
+
+Here is the content of breakwa11's readme file
+
 ### Usage
 
     usage: main.py [-h] [-i GFWLIST] -f PAC -p PROXY [--user-rule USER_RULE]
@@ -30,8 +36,3 @@ Generate O(1) PAC file from gfwlist.
 
 
 fork from [clowwindy](https://github.com/clowwindy/gfwlist2pac)
-
-```
-contect mmgac001[at]gmail.com or comit issues if you have any idea
-```
-
