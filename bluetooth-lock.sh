@@ -26,7 +26,7 @@ showHelp(){
 
 
 # 处理参数
-TEMP=$(getopt -o 'm:r:l:u:hds' --long 'mac-address:,lock-cmd:,unlock-cmd:,rssi-limit:,help,dry-run,scan,success-limit,failed-limit' -n 'bluetooth-lock.sh' -- "$@")
+TEMP=$(getopt -o 'm:r:l:u:hds' --long 'mac-address:,lock-cmd:,unlock-cmd:,rssi-limit:,help,dry-run,scan,success-limit:,failed-limit:' -n 'bluetooth-lock.sh' -- "$@")
 
 if [ $? -ne 0 ]; then
         echo
@@ -60,13 +60,13 @@ while true; do
         ;;
         '--success-limit')
             success_limit=$2
-            echo -e " success_limit is ${unlock_cmd}"
+            echo -e " success_limit is ${success_limit}"
             shift 2
             continue
         ;;
         '--failed-limit')
             failed_limit=$2
-            echo -e " failed_limit is ${unlock_cmd}"
+            echo -e " failed_limit is ${failed_limit}"
             shift 2
             continue
         ;;
@@ -155,7 +155,7 @@ do
         bluetoothctl --timeout $scan_interval scan on
         sleep 3
     else
-        rssi=`bluetoothctl --timeout $scan_interval scan on | grep "$mac" | awk '{ print $5 }'`
+        rssi=`bluetoothctl --timeout $scan_interval scan on | grep "$mac" | grep -o "RSSI: -.*" | awk '{ print $2 }'`
         echo " rssi: $rssi"
         if [[ $rssi && $rssi -ge $rssi_limit ]]
         then
@@ -168,7 +168,7 @@ do
             echo -e "\e[31m [`date +'%F %T'`] checkout failed $_checkout_fail_limit times\e[0m"
         fi
 
-        if [[ $_checkout_success_limit -gt $success_limit && $_mode == "lock" ]]; then
+        if [[ $_checkout_success_limit -ge $success_limit && $_mode == "lock" ]]; then
             _checkout_fail_limit=0
             echo -e "\e[33m [`date +'%F %T'`] unlock\e[0m"
             _mode="unlock"
@@ -177,7 +177,7 @@ do
             fi
         fi
 
-        if [[ $_checkout_fail_limit -gt $failed_limit && $_mode == "unlock" ]]; then
+        if [[ $_checkout_fail_limit -ge $failed_limit && $_mode == "unlock" ]]; then
             _checkout_success_limit=0
             echo -e "\e[33m [`date +'%F %T'`] lock\e[0m"
             _mode="lock"
